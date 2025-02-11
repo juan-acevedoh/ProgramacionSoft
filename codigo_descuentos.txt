@@ -1,0 +1,28 @@
+
+private bool leerArchivo() {
+    try {
+        string strPath = AppDomain.CurrentDomain.BaseDirectory + "descuentos.txt";
+        float intProm = 0, intCantLido, intPorcLido;
+        string strLinea;
+        int intError = 0;
+        if (File.ReadAllLines(strPath).Length != 0) {
+            StreamReader Archivo = new StreamReader(strPath);
+            while ((strLinea = Archivo.ReadLine()) != null) {
+                string[] vectorc = strLinea.Split(';');
+                intCod = Convert.ToInt32(vectorc[0]);      // Código del producto
+                intCantLido = Convert.ToInt32(vectorc[1]); // Cantidad mínima
+                intProm = Convert.ToInt32(vectorc[2]);     // Promedio de descuento
+                intPorcLido = Convert.ToInt32(vectorc[3]); // Porcentaje del dscto
+                if (intCod != 0 && intCantLido != 0 && intPorcLido != 0) {
+                    flbDesc = intPorcLido;
+                    break;
+                }
+            }
+            Archivo.Close();
+        }
+        return true;
+    } catch (Exception ex) {
+        strError = ex.Message;
+        return false;
+    }
+}
