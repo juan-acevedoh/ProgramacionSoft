@@ -1,0 +1,61 @@
+using System;
+
+public class TiendaOrquideas
+{
+    public static void Main()
+    {
+        int[] codigos = {110, 115, 120, 125, 130, 135};
+        double[] precios = {1500, 5000, 1100, 1000, 3000, 1750};
+
+        Console.WriteLine("Bienvenido a Piñata las Orquídeas");
+        Console.WriteLine("Seleccione un producto:");
+        Console.WriteLine("1. Producto 1 (Código: 110, Precio: $1500)");
+        Console.WriteLine("2. Producto 2 (Código: 115, Precio: $5000)");
+        Console.WriteLine("3. Producto 3 (Código: 120, Precio: $1100)");
+        Console.WriteLine("4. Producto 4 (Código: 125, Precio: $1000)");
+        Console.WriteLine("5. Producto 5 (Código: 130, Precio: $3000)");
+        Console.WriteLine("6. Producto 6 (Código: 135, Precio: $1750)");
+
+        Console.Write("Ingrese el número del producto (1-6): ");
+        if (!int.TryParse(Console.ReadLine(), out int producto) || producto < 1 || producto > 6)
+        {
+            Console.WriteLine("Producto no válido.");
+            return;
+        }
+
+        Console.Write("Ingrese la cantidad: ");
+        if (!int.TryParse(Console.ReadLine(), out int cantidad) || cantidad <= 0)
+        {
+            Console.WriteLine("Cantidad no válida.");
+            return;
+        }
+
+        double precioUnitario = precios[producto - 1];
+        double descuento = 0;
+
+        switch (producto)
+        {
+            case 2:
+                if (cantidad > 36) descuento = 20;
+                else if (cantidad > 24) descuento = 15;
+                else if (cantidad > 12) descuento = 10;
+                break;
+
+            case 5:
+                if (cantidad > 32) descuento = 12.5;
+                else if (cantidad > 16) descuento = 6.25;
+                break;
+        }
+
+        double subtotal = precioUnitario * cantidad;
+        double totalDescuento = subtotal * (descuento / 100);
+        double totalPagar = subtotal - totalDescuento;
+
+        Console.WriteLine("Resumen de la compra:");
+        Console.WriteLine($"Producto: {producto} (Código: {codigos[producto - 1]})");
+        Console.WriteLine($"Cantidad: {cantidad}");
+        Console.WriteLine($"Precio unitario: ${precioUnitario}");
+        Console.WriteLine($"Descuento aplicado: {descuento}%");
+        Console.WriteLine($"Total a pagar: ${totalPagar}");
+    }
+}
